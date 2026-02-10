@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>BBA Notes - Your Academic Resource Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a2332;
+            --secondary: #d4af37;
+            --accent: #2c5f7e;
+            --light: #f5f5f0;
+            --white: #ffffff;
+            --shadow: rgba(26, 35, 50, 0.1);
+            --text: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: linear-gradient(135deg, #f5f5f0 0%, #e8e8dc 100%);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Decorative background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, transparent 48%, rgba(212, 175, 55, 0.03) 49%, rgba(212, 175, 55, 0.03) 51%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(212, 175, 55, 0.03) 49%, rgba(212, 175, 55, 0.03) 51%, transparent 52%);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            padding: 60px 0 40px;
+            text-align: center;
+            position: relative;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            letter-spacing: -2px;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 0 var(--secondary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-weight: 300;
+            margin-top: 30px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Admin Toggle */
+        .admin-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .admin-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        .admin-btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow);
+        }
+
+        /* Selection Panel */
+        .selection-panel {
+            background: var(--white);
+            padding: 50px 60px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px var(--shadow);
+            margin: 40px auto;
+            max-width: 800px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .selection-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+
+        .select-group {
+            margin-bottom: 35px;
+        }
+
+        .select-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        select {
+            width: 100%;
+            padding: 18px 24px;
+            font-size: 1.1rem;
+            font-family: 'Work Sans', sans-serif;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: var(--light);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%231a2332' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            background-size: 20px;
+            padding-right: 55px;
+        }
+
+        select:hover {
+            border-color: var(--accent);
+            background: var(--white);
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+        }
+
+        /* Subjects Grid */
+        .subjects-container {
+            margin-top: 60px;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .subject-card {
+            background: var(--white);
+            padding: 35px 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px var(--shadow);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-left: 5px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subject-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: var(--secondary);
+            opacity: 0.05;
+            border-radius: 50%;
+            transform: translate(40%, -40%);
+            transition: all 0.4s ease;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(26, 35, 50, 0.15);
+            border-left-width: 8px;
+        }
+
+        .subject-card:hover::before {
+            transform: translate(30%, -30%) scale(1.5);
+            opacity: 0.08;
+        }
+
+        .subject-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subject-card .notes-count {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Notes View */
+        .notes-view {
+            background: var(--white);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px var(--shadow);
+            margin-bottom: 60px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 12px 28px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 500;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateX(-5px);
+        }
+
+        .notes-list {
+            margin-top: 30px;
+        }
+
+        .note-item {
+            background: var(--light);
+            padding: 25px 30px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--accent);
+        }
+
+        .note-item:hover {
+            background: #ececdc;
+            transform: translateX(5px);
+        }
+
+        .note-info h4 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .note-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .download-btn {
+            background: var(--secondary);
+            color: var(--primary);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .download-btn:hover {
+            background: var(--accent);
+            color: var(--white);
+            transform: scale(1.05);
+        }
+
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background: #c0392b;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            background: var(--white);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px var(--shadow);
+            margin-bottom: 60px;
+            border: 3px solid var(--secondary);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .admin-panel h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 16px 40px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state svg {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        /* Subject Management Styles */
+        #currentSubjectsList h4 {
+            font-family: 'Work Sans', sans-serif;
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        #newSubjectName {
+            background: var(--light);
+        }
+
+        .admin-panel h2 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
+            }
+
+            .selection-panel {
+                padding: 35px 30px;
+            }
+
+            .subjects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .notes-view,
+            .admin-panel {
+                padding: 30px 25px;
+            }
+
+            .note-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-toggle">
+        <button class="admin-btn" onclick="toggleAdminMode()">
+            <span id="adminBtnText">Admin Login</span>
+        </button>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1 class="logo">BBA Notes</h1>
+            <p class="tagline">Your Academic Resource Hub</p>
+        </header>
+
+        <!-- Selection Panel -->
+        <div class="selection-panel" id="selectionPanel">
+            <div class="select-group">
+                <label for="courseSelect">Select Course</label>
+                <select id="courseSelect">
+                    <option value="BBA">Bachelor of Business Administration (BBA)</option>
+                </select>
+            </div>
+
+            <div class="select-group">
+                <label for="semesterSelect">Select Semester</label>
+                <select id="semesterSelect" onchange="loadSubjects()">
+                    <option value="">-- Choose Semester --</option>
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Subjects Container -->
+        <div class="subjects-container hidden" id="subjectsContainer">
+            <h2 class="section-title" id="semesterTitle"></h2>
+            <div class="subjects-grid" id="subjectsGrid"></div>
+        </div>
+
+        <!-- Notes View -->
+        <div class="notes-view hidden" id="notesView">
+            <button class="back-btn" onclick="backToSubjects()">← Back to Subjects</button>
+            <h2 class="section-title" id="subjectTitle"></h2>
+            <div class="notes-list" id="notesList"></div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div class="admin-panel hidden" id="adminPanel">
+            <!-- Subject Management Section -->
+            <div style="margin-bottom: 50px; padding-bottom: 50px; border-bottom: 2px solid var(--light);">
+                <h2>🎯 Manage Subjects</h2>
+                <div class="form-group">
+                    <label>Select Semester to Manage</label>
+                    <select id="manageSemester" onchange="showSubjectsForManagement()">
+                        <option value="">-- Select Semester --</option>
+                        <option value="1">Semester 1</option>
+                        <option value="2">Semester 2</option>
+                        <option value="3">Semester 3</option>
+                        <option value="4">Semester 4</option>
+                        <option value="5">Semester 5</option>
+                        <option value="6">Semester 6</option>
+                    </select>
+                </div>
+
+                <div id="subjectManagementSection" class="hidden" style="margin-top: 25px;">
+                    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                        <input type="text" id="newSubjectName" placeholder="Enter new subject name" style="flex: 1;">
+                        <button type="button" onclick="addSubject()" class="submit-btn" style="width: auto; padding: 16px 30px; margin: 0;">
+                            Add Subject
+                        </button>
+                    </div>
+
+                    <div id="currentSubjectsList"></div>
+                </div>
+            </div>
+
+            <!-- Upload Notes Section -->
+            <h2>📚 Upload Notes</h2>
+            <form id="uploadForm" onsubmit="uploadNote(event)">
+                <div class="form-group">
+                    <label>Semester</label>
+                    <select id="adminSemester" required>
+                        <option value="">-- Select Semester --</option>
+                        <option value="1">Semester 1</option>
+                        <option value="2">Semester 2</option>
+                        <option value="3">Semester 3</option>
+                        <option value="4">Semester 4</option>
+                        <option value="5">Semester 5</option>
+                        <option value="6">Semester 6</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Subject Name</label>
+                    <input type="text" id="adminSubject" placeholder="e.g., Business Statistics" list="subjectsList" required>
+                    <datalist id="subjectsList"></datalist>
+                </div>
+
+                <div class="form-group">
+                    <label>Note Title</label>
+                    <input type="text" id="noteTitle" placeholder="e.g., Chapter 1 - Introduction" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Description (Optional)</label>
+                    <textarea id="noteDescription" placeholder="Brief description of the note"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Upload File (PDF, DOC, DOCX)</label>
+                    <input type="file" id="noteFile" accept=".pdf,.doc,.docx" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Upload Note</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // BBA Notes Website v3.0 - With Password Protection and Subject Management
+        console.log('BBA Notes v3.0 loaded - Password: aditya31');
+        
+        // Initialize data structure
+        let notesData = JSON.parse(localStorage.getItem('bbaNotesData')) || {};
+        let isAdminMode = false;
+        let currentSemester = null;
+        let currentSubject = null;
+
+        // Default subject structure for each semester
+        const defaultSemesterSubjects = {
+            '1': ['Business Communication', 'Principles of Management', 'Business Mathematics', 'Financial Accounting', 'Microeconomics'],
+            '2': ['Business Statistics', 'Marketing Management', 'Organizational Behavior', 'Macroeconomics', 'Business Law'],
+            '3': ['Cost Accounting', 'Human Resource Management', 'Business Research Methods', 'Financial Management', 'Corporate Law'],
+            '4': ['Operations Management', 'Management Information Systems', 'Entrepreneurship', 'International Business', 'Business Ethics'],
+            '5': ['Strategic Management', 'Investment Management', 'Digital Marketing', 'Supply Chain Management', 'Consumer Behavior'],
+            '6': ['Project Management', 'Business Analytics', 'Corporate Governance', 'E-Commerce', 'Total Quality Management']
+        };
+
+        // Load subjects from localStorage or use defaults
+        let semesterSubjects = JSON.parse(localStorage.getItem('semesterSubjects')) || JSON.parse(JSON.stringify(defaultSemesterSubjects));
+
+        // Toggle admin mode
+        function toggleAdminMode() {
+            const adminPanel = document.getElementById('adminPanel');
+            const adminBtnText = document.getElementById('adminBtnText');
+            const selectionPanel = document.getElementById('selectionPanel');
+            const subjectsContainer = document.getElementById('subjectsContainer');
+            const notesView = document.getElementById('notesView');
+
+            if (!isAdminMode) {
+                // Prompt for password
+                const password = prompt('Enter Admin Password:');
+                if (password !== 'aditya31') {
+                    alert('Incorrect password!');
+                    return;
+                }
+                isAdminMode = true;
+                adminPanel.classList.remove('hidden');
+                selectionPanel.classList.add('hidden');
+                subjectsContainer.classList.add('hidden');
+                notesView.classList.add('hidden');
+                adminBtnText.textContent = 'Exit Admin';
+            } else {
+                isAdminMode = false;
+                adminPanel.classList.add('hidden');
+                selectionPanel.classList.remove('hidden');
+                adminBtnText.textContent = 'Admin Login';
+                loadSubjects();
+            }
+        }
+
+        // Load subjects for selected semester
+        function loadSubjects() {
+            const semester = document.getElementById('semesterSelect').value;
+            currentSemester = semester;
+
+            if (!semester) {
+                document.getElementById('subjectsContainer').classList.add('hidden');
+                return;
+            }
+
+            const subjects = semesterSubjects[semester];
+            const subjectsGrid = document.getElementById('subjectsGrid');
+            const semesterTitle = document.getElementById('semesterTitle');
+
+            semesterTitle.textContent = `Semester ${semester} Subjects`;
+            subjectsGrid.innerHTML = '';
+
+            subjects.forEach(subject => {
+                const notesCount = notesData[semester]?.[subject]?.length || 0;
+                const card = document.createElement('div');
+                card.className = 'subject-card';
+                card.onclick = () => viewNotes(semester, subject);
+                card.innerHTML = `
+                    <h3>${subject}</h3>
+                    <p class="notes-count">${notesCount} ${notesCount === 1 ? 'note' : 'notes'} available</p>
+                `;
+                subjectsGrid.appendChild(card);
+            });
+
+            document.getElementById('subjectsContainer').classList.remove('hidden');
+            document.getElementById('notesView').classList.add('hidden');
+        }
+
+        // View notes for a subject
+        function viewNotes(semester, subject) {
+            currentSemester = semester;
+            currentSubject = subject;
+
+            const subjectTitle = document.getElementById('subjectTitle');
+            const notesList = document.getElementById('notesList');
+
+            subjectTitle.textContent = subject;
+            notesList.innerHTML = '';
+
+            const notes = notesData[semester]?.[subject] || [];
+
+            if (notes.length === 0) {
+                notesList.innerHTML = `
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <h3>No notes available yet</h3>
+                        <p>Notes will appear here once uploaded by admin</p>
+                    </div>
+                `;
+            } else {
+                notes.forEach((note, index) => {
+                    const noteItem = document.createElement('div');
+                    noteItem.className = 'note-item';
+                    noteItem.innerHTML = `
+                        <div class="note-info">
+                            <h4>${note.title}</h4>
+                            <p>${note.description || 'No description'}</p>
+                        </div>
+                        <div>
+                            <button class="download-btn" onclick="downloadNote('${semester}', '${subject}', ${index})">
+                                Download
+                            </button>
+                            ${isAdminMode ? `<button class="delete-btn" onclick="deleteNote('${semester}', '${subject}', ${index})">Delete</button>` : ''}
+                        </div>
+                    `;
+                    notesList.appendChild(noteItem);
+                });
+            }
+
+            document.getElementById('subjectsContainer').classList.add('hidden');
+            document.getElementById('notesView').classList.remove('hidden');
+        }
+
+        // Back to subjects
+        function backToSubjects() {
+            document.getElementById('notesView').classList.add('hidden');
+            loadSubjects();
+        }
+
+        // Upload note
+        function uploadNote(event) {
+            event.preventDefault();
+
+            const semester = document.getElementById('adminSemester').value;
+            const subject = document.getElementById('adminSubject').value;
+            const title = document.getElementById('noteTitle').value;
+            const description = document.getElementById('noteDescription').value;
+            const fileInput = document.getElementById('noteFile');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select a file');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const note = {
+                    title: title,
+                    description: description,
+                    fileName: file.name,
+                    fileData: e.target.result,
+                    fileType: file.type,
+                    uploadDate: new Date().toISOString()
+                };
+
+                if (!notesData[semester]) {
+                    notesData[semester] = {};
+                }
+                if (!notesData[semester][subject]) {
+                    notesData[semester][subject] = [];
+                }
+
+                notesData[semester][subject].push(note);
+                localStorage.setItem('bbaNotesData', JSON.stringify(notesData));
+
+                alert('Note uploaded successfully!');
+                document.getElementById('uploadForm').reset();
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        // Download note
+        function downloadNote(semester, subject, index) {
+            const note = notesData[semester][subject][index];
+            const link = document.createElement('a');
+            link.href = note.fileData;
+            link.download = note.fileName;
+            link.click();
+        }
+
+        // Delete note
+        function deleteNote(semester, subject, index) {
+            if (confirm('Are you sure you want to delete this note?')) {
+                notesData[semester][subject].splice(index, 1);
+                localStorage.setItem('bbaNotesData', JSON.stringify(notesData));
+                viewNotes(semester, subject);
+            }
+        }
+
+        // Show subjects for management
+        function showSubjectsForManagement() {
+            const semester = document.getElementById('manageSemester').value;
+            const managementSection = document.getElementById('subjectManagementSection');
+            const currentSubjectsList = document.getElementById('currentSubjectsList');
+
+            if (!semester) {
+                managementSection.classList.add('hidden');
+                return;
+            }
+
+            managementSection.classList.remove('hidden');
+            
+            if (!semesterSubjects[semester]) {
+                semesterSubjects[semester] = [];
+            }
+
+            const subjects = semesterSubjects[semester];
+            currentSubjectsList.innerHTML = '<h4 style="margin-bottom: 15px; color: var(--primary); font-size: 1.1rem;">Current Subjects:</h4>';
+
+            if (subjects.length === 0) {
+                currentSubjectsList.innerHTML += '<p style="color: #999; font-style: italic;">No subjects added yet</p>';
+            } else {
+                subjects.forEach((subject, index) => {
+                    const subjectItem = document.createElement('div');
+                    subjectItem.style.cssText = 'background: var(--light); padding: 15px 20px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;';
+                    subjectItem.innerHTML = `
+                        <span style="font-weight: 500; color: var(--primary);">${subject}</span>
+                        <button onclick="removeSubject('${semester}', ${index})" class="delete-btn">Remove</button>
+                    `;
+                    currentSubjectsList.appendChild(subjectItem);
+                });
+            }
+        }
+
+        // Add new subject
+        function addSubject() {
+            const semester = document.getElementById('manageSemester').value;
+            const subjectName = document.getElementById('newSubjectName').value.trim();
+
+            if (!semester) {
+                alert('Please select a semester first');
+                return;
+            }
+
+            if (!subjectName) {
+                alert('Please enter a subject name');
+                return;
+            }
+
+            if (!semesterSubjects[semester]) {
+                semesterSubjects[semester] = [];
+            }
+
+            if (semesterSubjects[semester].includes(subjectName)) {
+                alert('This subject already exists in this semester');
+                return;
+            }
+
+            semesterSubjects[semester].push(subjectName);
+            localStorage.setItem('semesterSubjects', JSON.stringify(semesterSubjects));
+
+            document.getElementById('newSubjectName').value = '';
+            showSubjectsForManagement();
+            alert('Subject added successfully!');
+        }
+
+        // Remove subject
+        function removeSubject(semester, index) {
+            const subjectName = semesterSubjects[semester][index];
+            
+            if (confirm(`Are you sure you want to remove "${subjectName}"?\n\nWarning: This will also delete all notes associated with this subject!`)) {
+                // Remove subject from array
+                semesterSubjects[semester].splice(index, 1);
+                localStorage.setItem('semesterSubjects', JSON.stringify(semesterSubjects));
+
+                // Remove associated notes
+                if (notesData[semester] && notesData[semester][subjectName]) {
+                    delete notesData[semester][subjectName];
+                    localStorage.setItem('bbaNotesData', JSON.stringify(notesData));
+                }
+
+                showSubjectsForManagement();
+                alert('Subject and associated notes removed successfully!');
+            }
+        }
+
+        // Update subject list for autocomplete in upload form
+        function updateSubjectAutocomplete() {
+            const semester = document.getElementById('adminSemester').value;
+            const datalist = document.getElementById('subjectsList');
+            
+            datalist.innerHTML = '';
+            
+            if (semester && semesterSubjects[semester]) {
+                semesterSubjects[semester].forEach(subject => {
+                    const option = document.createElement('option');
+                    option.value = subject;
+                    datalist.appendChild(option);
+                });
+            }
+        }
+
+        // Add event listener to update autocomplete when semester changes
+        document.addEventListener('DOMContentLoaded', function() {
+            const adminSemesterSelect = document.getElementById('adminSemester');
+            if (adminSemesterSelect) {
+                adminSemesterSelect.addEventListener('change', updateSubjectAutocomplete);
+            }
+        });
+
+        // Initialize on page load
+        window.onload = function() {
+            console.log('BBA Notes website loaded successfully!');
+        };
+    </script>
+</body>
+</html>
